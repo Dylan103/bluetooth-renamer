@@ -1,6 +1,6 @@
 # Bluetooth Renamer 1.1
 
-A portable 64-bit Windows app for the local Bluetooth device names shown in Quick Settings.
+A portable 64-bit Windows app for the local Bluetooth device names shown in Quick Settings, made with Codex :)
 
 ## Download
 
@@ -15,7 +15,7 @@ Download [Bluetooth Renamer 1.1.0](https://github.com/Dylan103/bluetooth-renamer
 
 You can save the current name without changing the text to make an earlier temporary rename persistent. No startup script, scheduled task, or background process is needed.
 
-**History** records changes made with this app. Select a verified change and choose **Restore previous name** to undo it. Restoration recovers both the previous API name and the exact previous persistent value, including an absent or empty value. It stops if either has changed since the recorded operation. Version 1.0 history has no persistent-value snapshot; those entries remain readable, but automatic undo is disabled. Enter their previous name on the Devices tab to restore that name instead.
+**History** records changes made with this app. Select a verified change and choose **Restore previous name** to undo it. Restoration recovers both the previous API name and the exact previous persistent value, including an absent or empty value. It stops if either has changed since the recorded operation.
 
 The app works with remembered classic Bluetooth devices, including compatible headphones and speakers. Bluetooth LE-only devices are not listed by the Windows API used here. Names apply locally on this PC; they do not change the device's name on another computer or phone. Reboot persistence of the binary `FriendlyName` method was manually verified on Windows 11 with a Galaxy Buds FE device. This registry behavior is not a documented Microsoft persistence contract; unpairing, driver changes, or Windows updates may remove or replace a saved name.
 
@@ -28,13 +28,10 @@ The app works with remembered classic Bluetooth devices, including compatible he
 - **Tab / Shift+Tab**: move between controls.
 - **F1**: help.
 
-Buttons have touch-sized targets. Narrow windows switch to a stacked, scrollable layout. The app declares **Per-Monitor V2 DPI awareness**, uses vector/WPF layout in device-independent units, and clamps windows to the available work area when display configuration changes. Windows high-contrast colors are respected when the app starts.
-
 ## Requirements and permissions
 
-- Windows 11, x64; not restricted to a Lenovo model.
+- Windows 11, x64
 - .NET Framework 4.8 or newer. 
-- No installer, PowerShell execution-policy changes, downloads, CUDA, NPU, or network connection required.
 - Browsing devices and history uses standard user privileges. Saving/restoring names requires administrator access to the device's machine-wide registry value. **Enable saving…** or **Enable restore…** requests Windows elevation and opens the editing window; it does not save anything until you choose Save or Restore there. Cancelling approval leaves the current window open. The app never changes registry permissions.
 
 WPF handles drawing with Windows graphics and can fall back to software rendering. Device discovery reads saved records without a radio inquiry or connecting devices. Work runs off the UI thread, and there is no background polling or scheduled task. Closing the window exits the app.
