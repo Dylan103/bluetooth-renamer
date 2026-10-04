@@ -1,0 +1,154 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Bluetooth Renamer" Width="1000" Height="690" MinWidth="640" MinHeight="500"
+        WindowStartupLocation="CenterScreen" Background="{DynamicResource BackgroundBrush}" Foreground="{DynamicResource TextBrush}"
+        FontFamily="Segoe UI" FontSize="14" UseLayoutRounding="True" SnapsToDevicePixels="True">
+ <Window.Resources>
+  <SolidColorBrush x:Key="BackgroundBrush" Color="#10151D"/>
+  <SolidColorBrush x:Key="CardBrush" Color="#19222E"/>
+  <SolidColorBrush x:Key="InputBrush" Color="#111923"/>
+  <SolidColorBrush x:Key="TextBrush" Color="#F2F6FC"/>
+  <SolidColorBrush x:Key="MutedBrush" Color="#B0BDCF"/>
+  <SolidColorBrush x:Key="LineBrush" Color="#354459"/>
+  <SolidColorBrush x:Key="AccentBrush" Color="#87E2D1"/>
+  <SolidColorBrush x:Key="AccentTextBrush" Color="#092822"/>
+  <SolidColorBrush x:Key="SelectedBrush" Color="#25483F"/>
+  <SolidColorBrush x:Key="WarningBrush" Color="#FFD1A0"/>
+  <Style TargetType="TextBlock"><Setter Property="TextWrapping" Value="Wrap"/></Style>
+  <Style TargetType="Button">
+   <Setter Property="MinHeight" Value="44"/><Setter Property="MinWidth" Value="88"/>
+   <Setter Property="Padding" Value="16,9"/><Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+   <Setter Property="Background" Value="{DynamicResource CardBrush}"/><Setter Property="BorderBrush" Value="{DynamicResource LineBrush}"/>
+   <Setter Property="Cursor" Value="Hand"/>
+   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button">
+    <Border x:Name="Surface" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="7" Padding="{TemplateBinding Padding}">
+     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+    </Border><ControlTemplate.Triggers>
+     <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Surface" Property="BorderBrush" Value="{DynamicResource AccentBrush}"/></Trigger>
+     <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Surface" Property="BorderBrush" Value="{DynamicResource AccentBrush}"/><Setter TargetName="Surface" Property="BorderThickness" Value="2"/></Trigger>
+     <Trigger Property="IsEnabled" Value="False"><Setter TargetName="Surface" Property="Opacity" Value="0.45"/></Trigger>
+    </ControlTemplate.Triggers>
+   </ControlTemplate></Setter.Value></Setter>
+  </Style>
+  <Style TargetType="TextBox">
+   <Setter Property="MinHeight" Value="44"/><Setter Property="Padding" Value="12,10"/>
+   <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/><Setter Property="CaretBrush" Value="{DynamicResource TextBrush}"/>
+   <Setter Property="Background" Value="{DynamicResource InputBrush}"/><Setter Property="BorderBrush" Value="{DynamicResource LineBrush}"/>
+   <Setter Property="SelectionBrush" Value="{DynamicResource SelectedBrush}"/><Setter Property="VerticalContentAlignment" Value="Center"/>
+  </Style>
+  <Style TargetType="ListBox">
+   <Setter Property="Background" Value="Transparent"/><Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+   <Setter Property="BorderThickness" Value="0"/><Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+   <Setter Property="ScrollViewer.PanningMode" Value="VerticalOnly"/>
+  </Style>
+  <Style TargetType="ListBoxItem">
+   <Setter Property="HorizontalContentAlignment" Value="Stretch"/><Setter Property="Padding" Value="13,12"/><Setter Property="Margin" Value="0,2"/>
+   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ListBoxItem">
+    <Border x:Name="Row" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" CornerRadius="8" Padding="{TemplateBinding Padding}">
+     <ContentPresenter/>
+    </Border><ControlTemplate.Triggers>
+     <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Row" Property="Background" Value="{DynamicResource InputBrush}"/></Trigger>
+     <Trigger Property="IsSelected" Value="True"><Setter TargetName="Row" Property="Background" Value="{DynamicResource SelectedBrush}"/><Setter TargetName="Row" Property="BorderBrush" Value="{DynamicResource AccentBrush}"/></Trigger>
+     <Trigger Property="IsKeyboardFocusWithin" Value="True"><Setter TargetName="Row" Property="BorderBrush" Value="{DynamicResource AccentBrush}"/><Setter TargetName="Row" Property="BorderThickness" Value="2"/></Trigger>
+    </ControlTemplate.Triggers>
+   </ControlTemplate></Setter.Value></Setter>
+  </Style>
+  <Style TargetType="TabItem">
+   <Setter Property="Foreground" Value="{DynamicResource MutedBrush}"/><Setter Property="Padding" Value="18,12"/>
+   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="TabItem">
+    <Border x:Name="Tab" Padding="{TemplateBinding Padding}" Margin="0,0,8,0" BorderThickness="0,0,0,3" BorderBrush="Transparent" Background="Transparent">
+     <ContentPresenter ContentSource="Header" RecognizesAccessKey="True"/>
+    </Border><ControlTemplate.Triggers>
+     <Trigger Property="IsSelected" Value="True"><Setter TargetName="Tab" Property="BorderBrush" Value="{DynamicResource AccentBrush}"/><Setter Property="Foreground" Value="{DynamicResource TextBrush}"/></Trigger>
+     <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Tab" Property="Background" Value="{DynamicResource CardBrush}"/></Trigger>
+    </ControlTemplate.Triggers>
+   </ControlTemplate></Setter.Value></Setter>
+  </Style>
+ </Window.Resources>
+ <Grid Margin="26,20,26,18">
+  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+  <Grid Grid.Row="0" Margin="0,0,0,18">
+   <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+   <StackPanel Margin="0,0,20,0">
+    <TextBlock Text="BLUETOOTH RENAMER" FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource AccentBrush}" Margin="0,0,0,7"/>
+    <TextBlock Text="Names that make sense." FontSize="27" FontWeight="SemiBold"/>
+    <TextBlock Text="Give your paired devices a clear name on this PC." Foreground="{DynamicResource MutedBrush}" Margin="0,6,0,0"/>
+   </StackPanel>
+   <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+    <Button x:Name="RefreshButton" Content="_Refresh" ToolTip="Refresh paired devices (F5 or Ctrl+R)" Margin="0,0,9,0"/>
+    <Button x:Name="HelpButton" Content="_Help" MinWidth="66" ToolTip="How renaming works"/>
+   </StackPanel>
+  </Grid>
+  <Border x:Name="DemoBanner" Grid.Row="1" Background="{DynamicResource SelectedBrush}" CornerRadius="7" Padding="12,9" Margin="0,0,0,10" Visibility="Collapsed">
+   <TextBlock Text="Preview mode · These are example devices. Your Bluetooth devices are not changed."/>
+  </Border>
+  <TabControl x:Name="Tabs" Grid.Row="2" BorderThickness="0" Background="Transparent" Padding="0,17,0,0">
+   <TabItem Header="_Devices">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" PanningMode="VerticalOnly">
+     <Grid x:Name="DeviceLayout">
+      <Grid.ColumnDefinitions><ColumnDefinition Width="0.95*"/><ColumnDefinition Width="18"/><ColumnDefinition Width="1.3*"/></Grid.ColumnDefinitions>
+      <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+      <Border x:Name="DeviceCard" Background="{DynamicResource CardBrush}" BorderBrush="{DynamicResource LineBrush}" BorderThickness="1" CornerRadius="12" Padding="15">
+       <StackPanel>
+        <DockPanel Margin="0,0,0,12"><TextBlock x:Name="DeviceCount" DockPanel.Dock="Right" Foreground="{DynamicResource MutedBrush}"/><TextBlock Text="Your devices" FontSize="17" FontWeight="SemiBold"/></DockPanel>
+        <TextBox x:Name="SearchBox" AutomationProperties.Name="Filter devices" ToolTip="Filter by device name or Bluetooth address (Ctrl+F)" Margin="0,0,0,9"/>
+        <TextBlock Text="Filter by name or address" Foreground="{DynamicResource MutedBrush}" FontSize="12" Margin="1,0,0,8"/>
+        <ListBox x:Name="DeviceList" MinHeight="150" MaxHeight="350" AutomationProperties.Name="Paired Bluetooth devices">
+         <ListBox.ItemTemplate><DataTemplate>
+          <StackPanel>
+           <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="15"/>
+           <TextBlock Text="{Binding Subtitle}" Foreground="{DynamicResource MutedBrush}" FontSize="12" Margin="0,5,0,0"/>
+          </StackPanel>
+         </DataTemplate></ListBox.ItemTemplate>
+        </ListBox>
+        <TextBlock x:Name="EmptyLabel" Visibility="Collapsed" Text="No paired devices found. Turn on Bluetooth, pair a device in Windows Settings, then refresh." Foreground="{DynamicResource MutedBrush}" Margin="4,14,4,14"/>
+       </StackPanel>
+      </Border>
+      <Border x:Name="RenameCard" Grid.Column="2" VerticalAlignment="Top" Background="{DynamicResource CardBrush}" BorderBrush="{DynamicResource LineBrush}" BorderThickness="1" CornerRadius="12" Padding="23">
+       <StackPanel>
+        <TextBlock Text="RENAME DEVICE" Foreground="{DynamicResource AccentBrush}" FontSize="11" FontWeight="SemiBold" Margin="0,0,0,15"/>
+        <TextBlock x:Name="SelectedName" Text="Choose a device" FontSize="23" FontWeight="SemiBold"/>
+        <TextBlock x:Name="SelectedInfo" Text="Select a paired device from the list to change its name." Foreground="{DynamicResource MutedBrush}" Margin="0,8,0,22"/>
+        <Label Content="_New name" Target="{Binding ElementName=NewNameBox}" Foreground="{DynamicResource TextBrush}" Padding="0" Margin="0,0,0,7"/>
+        <TextBox x:Name="NewNameBox" MaxLength="247" AutomationProperties.Name="New Bluetooth device name" IsEnabled="False" FontSize="16"/>
+        <DockPanel Margin="0,8,0,18"><TextBlock x:Name="NameCount" DockPanel.Dock="Right" Foreground="{DynamicResource MutedBrush}" FontSize="12"/><TextBlock x:Name="NameHint" Foreground="{DynamicResource MutedBrush}" FontSize="12" Text="Up to 247 bytes." Margin="0,0,12,0"/></DockPanel>
+        <Button x:Name="RenameButton" Content="_Save name" Background="{DynamicResource AccentBrush}" Foreground="{DynamicResource AccentTextBrush}" FontWeight="SemiBold" BorderBrush="{DynamicResource AccentBrush}" HorizontalAlignment="Stretch" IsEnabled="False" ToolTip="Save this device's new name (Ctrl+Enter)"/>
+        <TextBlock x:Name="PermissionHint" Foreground="{DynamicResource MutedBrush}" FontSize="12" Margin="0,8,0,0"/>
+        <Border BorderBrush="{DynamicResource LineBrush}" BorderThickness="0,1,0,0" Margin="0,22,0,0" Padding="0,17,0,0">
+         <StackPanel>
+          <TextBlock Text="After saving" FontWeight="SemiBold" Margin="0,0,0,6"/>
+          <TextBlock Text="If Quick Settings still shows the old name, disconnect and reconnect that device." Foreground="{DynamicResource MutedBrush}"/>
+          <TextBlock Text="Your previous name and restart setting are saved in History." Foreground="{DynamicResource MutedBrush}" Margin="0,10,0,0"/>
+         </StackPanel>
+        </Border>
+       </StackPanel>
+      </Border>
+     </Grid>
+    </ScrollViewer>
+   </TabItem>
+   <TabItem Header="_History">
+    <Grid>
+     <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+     <TextBlock Text="Names changed with this app. Select a saved change to restore its previous name." Foreground="{DynamicResource MutedBrush}" Margin="0,0,0,14"/>
+     <Border Grid.Row="1" Background="{DynamicResource CardBrush}" BorderBrush="{DynamicResource LineBrush}" BorderThickness="1" CornerRadius="12" Padding="12">
+      <Grid>
+       <ListBox x:Name="HistoryList" AutomationProperties.Name="Bluetooth rename history">
+        <ListBox.ItemTemplate><DataTemplate><StackPanel>
+         <TextBlock Text="{Binding Title}" FontSize="16" FontWeight="SemiBold"/>
+         <TextBlock Text="{Binding Subtitle}" Foreground="{DynamicResource MutedBrush}" FontSize="12" Margin="0,6,0,0"/>
+        </StackPanel></DataTemplate></ListBox.ItemTemplate>
+       </ListBox>
+       <TextBlock x:Name="HistoryEmpty" Text="Your saved name changes will appear here." Foreground="{DynamicResource MutedBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20"/>
+      </Grid>
+     </Border>
+     <WrapPanel Grid.Row="2" Margin="0,15,0,0">
+      <Button x:Name="UndoButton" Content="Restore _previous name" IsEnabled="False" Margin="0,0,10,8"/>
+      <Button x:Name="OpenHistoryButton" Content="Open saved _backups" Margin="0,0,0,8"/>
+     </WrapPanel>
+    </Grid>
+   </TabItem>
+  </TabControl>
+  <Border x:Name="StatusBorder" Grid.Row="3" Background="{DynamicResource InputBrush}" BorderBrush="{DynamicResource LineBrush}" BorderThickness="1" CornerRadius="8" Margin="0,16,0,0" Padding="13,10">
+   <TextBlock x:Name="StatusLabel" Text="Loading paired devices…" Foreground="{DynamicResource MutedBrush}" AutomationProperties.LiveSetting="Polite"/>
+  </Border>
+ </Grid>
+</Window>
